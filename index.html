@@ -1,0 +1,18 @@
+<input id="answer" type="text">
+<button onclick="check()">Prüfen</button>
+
+<p id="result"></p>
+
+<script>
+function check() {
+    const answer = document.getElementById("answer").value;
+
+    if(answer.toLowerCase() === "pirat") {
+        document.getElementById("result").innerText =
+            "Richtig! Weiter zum nächsten Rätsel!";
+    } else {
+        document.getElementById("result").innerText =
+            "Leider falsch!";
+    }
+}
+</script>
