@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rätselprüfung</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #successImage {
+            display: none;
+            margin-top: 30px;
+            max-width: 300px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Rätsel lösen</h1>
+
+    <input id="answer" type="text" placeholder="Lösung eingeben">
+    <button onclick="check()">Prüfen</button>
+
+    <p id="result"></p>
+
+    <!-- Bild -->
+    <img id="successImage" src="thumbsup.webp" alt="Richtig">
+
+    <script>
+        function check() {
+            const answer = document
+                .getElementById("answer")
+                .value
+                .trim()
+                .toLowerCase();
+
+            const result = document.getElementById("result");
+            const image = document.getElementById("successImage");
+
+            if (answer === "pirat") {
+                result.innerText = "Richtig! Gut gemacht!";
+                result.style.color = "green";
+
+                // Bild anzeigen
+                image.style.display = "block";
+            } else {
+                result.innerText = "Leider falsch!";
+                result.style.color = "red";
+
+                // Bild verstecken
+                image.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
