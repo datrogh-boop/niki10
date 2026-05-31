@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Mario Rätsel</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Arial", sans-serif;
+            background: linear-gradient(to bottom, #5cc7ff 0%, #87e0ff 100%);
+            text-align: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Wolken */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50px;
+            opacity: 0.9;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: "";
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .cloud1 {
+            width: 120px;
+            height: 40px;
+            top: 50px;
+            left: 10%;
+        }
+
+        .cloud1::before {
+            width: 50px;
+            height: 50px;
+            top: -20px;
+            left: 15px;
+        }
+
+        .cloud1::after {
+            width: 60px;
+            height: 60px;
+            top: -25px;
+            right: 15px;
+        }
+
+        .cloud2 {
+            width: 150px;
+            height: 50px;
+            top: 120px;
+            right: 10%;
+        }
+
+        .cloud2::before {
+            width: 60px;
+            height: 60px;
+            top: -25px;
+            left: 20px;
+        }
+
+        .cloud2::after {
+            width: 70px;
+            height: 70px;
+            top: -30px;
+            right: 20px;
+        }
+
+        /* Hauptbox */
+        .container {
+            margin-top: 120px;
+            background: #fff8dc;
+            border: 6px solid #d35400;
+            border-radius: 20px;
+            display: inline-block;
+            padding: 40px;
+            box-shadow: 0 8px 0 #8b4513;
+        }
+
+        h1 {
+            color: #e60012;
+            font-size: 48px;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px #ffcc00;
+        }
+
+        input {
+            padding: 15px;
+            font-size: 22px;
+            border: 4px solid #e60012;
+            border-radius: 12px;
+            width: 250px;
+            text-align: center;
+        }
+
+        button {
+            margin-left: 10px;
+            padding: 15px 25px;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            background: #00a651;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #007a3d;
+        }
+
+        button:hover {
+            transform: translateY(2px);
+            box-shadow: 0 3px 0 #007a3d;
+        }
+
+        #result {
+            margin-top: 25px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        #successImage {
+            display: none;
+            margin-top: 30px;
+            max-width: 320px;
+            border: 8px solid #ffcc00;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        /* Boden */
+        .ground {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+            background: #b5651d;
+            border-top: 8px solid #8b4513;
+        }
+
+        .grass {
+            position: fixed;
+            bottom: 80px;
+            width: 100%;
+            height: 25px;
+            background: #00a651;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Wolken -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+
+    <div class="container">
+        <h1>🍄 Mario Rätsel 🍄</h1>
+
+        <input id="answer" type="text" placeholder="Lösung eingeben">
+        <button onclick="check()">Prüfen</button>
+
+        <p id="result"></p>
+
+        <!-- Belohnungsbild -->
+        <img id="successImage" src="thumbsup.webp" alt="Belohnung">
+    </div>
+
+    <div class="grass"></div>
+    <div class="ground"></div>
+
+    <script>
+        function check() {
+            const answer = document
+                .getElementById("answer")
+                .value
+                .trim()
+                .toLowerCase();
+
+            const result = document.getElementById("result");
+            const image = document.getElementById("successImage");
+
+            if (answer === "peach") {
+                result.innerText = "⭐ Richtig! Du hast das Rätsel gelöst!";
+                result.style.color = "#00a651";
+
+                image.style.display = "block";
+            } else {
+                result.innerText = "❌ Leider falsch!";
+                result.style.color = "#e60012";
+
+                image.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
