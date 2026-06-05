@@ -3,155 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Mario Münz-Digitalisierer</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: "Courier New", monospace;
-    background: linear-gradient(#5cc8ff, #87ceeb);
-    text-align: center;
-    overflow: hidden;
+
+*{
+    box-sizing:border-box;
 }
 
-/* Titel */
-h1 {
-    color: white;
-    text-shadow: 4px 4px #000;
-    margin-top: 40px;
-    font-size: 3em;
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(#5cc8ff,#87ceeb);
+    text-align:center;
+    overflow:hidden;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 }
 
-/* Button */
-button {
-    font-size: 1.5em;
-    padding: 15px 30px;
-    border: 4px solid black;
-    background: #ff4444;
-    color: white;
-    cursor: pointer;
-    box-shadow: 5px 5px 0 black;
-    margin-top: 20px;
+h1{
+    color:white;
+    text-shadow:3px 3px #000;
+    margin:20px 10px;
+    font-size:clamp(2rem,6vw,3.5rem);
 }
 
-button:hover {
-    transform: scale(1.05);
+button{
+    font-size:1.3rem;
+    padding:18px 28px;
+    border:4px solid black;
+    border-radius:12px;
+    background:#ff4444;
+    color:white;
+    cursor:pointer;
+    box-shadow:4px 4px 0 black;
+    min-height:64px;
 }
 
-/* Münzbereich */
-#coins {
-    margin-top: 40px;
-    min-height: 180px;
+button:active{
+    transform:scale(0.97);
 }
 
-/* Münze */
-.coin {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-    margin: 10px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #fff6a0, #ffd700 60%, #c89200);
-    border: 4px solid #8b6508;
-    position: relative;
-    animation: pop 0.4s ease;
+#coins{
+    width:min(95vw,700px);
+
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+
+    margin-top:30px;
+    min-height:200px;
 }
 
-.coin::after {
-    content: "I";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 40px;
-    font-weight: bold;
-    color: #8b6508;
+.coin{
+    width:70px;
+    height:70px;
+    object-fit:contain;
+
+    animation:pop .35s ease;
 }
 
-/* Erscheinen */
-@keyframes pop {
-    from {
-        transform: scale(0);
-    }
-    to {
-        transform: scale(1);
+@media (min-width:768px){
+    .coin{
+        width:90px;
+        height:90px;
     }
 }
 
-/* Fallen */
-.coin.fall {
-    animation: fallAway 2s ease-in forwards;
-}
-
-@keyframes fallAway {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
+@keyframes pop{
+    from{
+        transform:scale(0);
     }
-
-    100% {
-        transform: translateY(900px) rotate(1080deg);
-        opacity: 0;
+    to{
+        transform:scale(1);
     }
 }
 
-/* Nachricht */
-#message {
-    margin-top: 20px;
-    font-size: 2em;
-    color: yellow;
-    text-shadow: 3px 3px black;
+.coin.fall{
+    animation:fallAway 2s ease-in forwards;
 }
 
-/* Gewinner-Banner */
-#winnerBanner {
-    position: fixed;
-    top: -250px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #ffd700;
-    color: #c62828;
-    font-size: 4em;
-    font-weight: bold;
-    padding: 25px 60px;
-    border: 8px solid black;
-    border-radius: 20px;
-    text-shadow: 3px 3px white;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    z-index: 1000;
-}
+@keyframes fallAway{
+    to{
+        transform:
+            translateY(120vh)
+            rotate(1080deg);
 
-#winnerBanner.show {
-    animation: bannerDrop 1s ease-out forwards;
-}
-
-@keyframes bannerDrop {
-    0% {
-        top: -250px;
-    }
-
-    70% {
-        top: 80px;
-    }
-
-    85% {
-        top: 60px;
-    }
-
-    100% {
-        top: 70px;
+        opacity:0;
     }
 }
 
-/* Boden */
-.ground {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 80px;
-    background: #8B4513;
-    border-top: 8px solid #5d2d0c;
+#message{
+    margin-top:20px;
+    padding:0 15px;
+    font-size:clamp(1.3rem,4vw,2rem);
+    color:yellow;
+    text-shadow:2px 2px black;
 }
+
+#winnerBanner{
+    position:fixed;
+
+    top:-250px;
+    left:50%;
+    transform:translateX(-50%);
+
+    width:min(90vw,700px);
+
+    background:#ffd700;
+    color:#c62828;
+
+    font-weight:bold;
+
+    font-size:clamp(2rem,8vw,4rem);
+
+    padding:20px;
+
+    border:6px solid black;
+    border-radius:20px;
+
+    text-shadow:2px 2px white;
+    z-index:1000;
+}
+
+#winnerBanner.show{
+    animation:bannerDrop 1s ease-out forwards;
+}
+
+@keyframes bannerDrop{
+
+    0%{
+        top:-250px;
+    }
+
+    70%{
+        top:70px;
+    }
+
+    85%{
+        top:55px;
+    }
+
+    100%{
+        top:65px;
+    }
+}
+
+.ground{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:60px;
+
+    background:#8B4513;
+    border-top:6px solid #5d2d0c;
+}
+
 </style>
 </head>
 
@@ -159,13 +171,17 @@ button:hover {
 
 <h1>🍄 Münz-Digitalisierer 🍄</h1>
 
-<button onclick="scanCoin()">🪙 Münze digitalisieren</button>
+<button onclick="scanCoin()">
+🪙 Münze digitalisieren
+</button>
 
 <div id="coins"></div>
 
 <div id="message"></div>
 
-<div id="winnerBanner">🏆 GEWONNEN! 🏆</div>
+<div id="winnerBanner">
+🏆 GEWONNEN! 🏆
+</div>
 
 <div class="ground"></div>
 
@@ -174,50 +190,58 @@ button:hover {
 let count = 0;
 const maxCoins = 9;
 
-function scanCoin() {
+function scanCoin(){
 
-    if (count >= maxCoins) {
+    if(count >= maxCoins){
         return;
     }
 
     count++;
 
-    const coin = document.createElement("div");
+    const coin = document.createElement("img");
+
+    coin.src = "coin.png";
+    coin.alt = "Mario Münze";
     coin.className = "coin";
 
-    document.getElementById("coins").appendChild(coin);
+    document
+        .getElementById("coins")
+        .appendChild(coin);
 
-    if (count === maxCoins) {
+    if(count === maxCoins){
 
         document.getElementById("message").innerHTML =
             "⭐ Alle 9 Münzen digitalisiert! ⭐";
 
-        setTimeout(startVictorySequence, 1000);
+        setTimeout(startVictorySequence,1000);
     }
 }
 
-function startVictorySequence() {
+function startVictorySequence(){
 
-    const coins = document.querySelectorAll(".coin");
+    const coins =
+        document.querySelectorAll(".coin");
 
-    coins.forEach((coin, index) => {
+    coins.forEach((coin,index)=>{
 
-        setTimeout(() => {
+        setTimeout(()=>{
+
             coin.classList.add("fall");
-        }, index * 150);
+
+        },index * 150);
 
     });
 
-    setTimeout(() => {
+    setTimeout(()=>{
 
         document
             .getElementById("winnerBanner")
             .classList.add("show");
 
         document.getElementById("message").innerHTML =
-            "🎉 Das Portal wurde aktiviert! 🎉";
+            "🎉 Das Portal wurde aktiviert! 🎉<br><br><strong>GEWONNEN!</strong>";
 
-    }, 1800);
+    },1800);
 }
 
 </script>
