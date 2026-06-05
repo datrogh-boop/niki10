@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mario Münz-Digitalisierer</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Courier New", monospace;
+    background: linear-gradient(#5cc8ff, #87ceeb);
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Titel */
+h1 {
+    color: white;
+    text-shadow: 4px 4px #000;
+    margin-top: 40px;
+    font-size: 3em;
+}
+
+/* Button */
+button {
+    font-size: 1.5em;
+    padding: 15px 30px;
+    border: 4px solid black;
+    background: #ff4444;
+    color: white;
+    cursor: pointer;
+    box-shadow: 5px 5px 0 black;
+    margin-top: 20px;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Münzbereich */
+#coins {
+    margin-top: 40px;
+    min-height: 180px;
+}
+
+/* Münze */
+.coin {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    margin: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff6a0, #ffd700 60%, #c89200);
+    border: 4px solid #8b6508;
+    position: relative;
+    animation: pop 0.4s ease;
+}
+
+.coin::after {
+    content: "I";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    font-weight: bold;
+    color: #8b6508;
+}
+
+/* Erscheinen */
+@keyframes pop {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+/* Fallen */
+.coin.fall {
+    animation: fallAway 2s ease-in forwards;
+}
+
+@keyframes fallAway {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(900px) rotate(1080deg);
+        opacity: 0;
+    }
+}
+
+/* Nachricht */
+#message {
+    margin-top: 20px;
+    font-size: 2em;
+    color: yellow;
+    text-shadow: 3px 3px black;
+}
+
+/* Gewinner-Banner */
+#winnerBanner {
+    position: fixed;
+    top: -250px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffd700;
+    color: #c62828;
+    font-size: 4em;
+    font-weight: bold;
+    padding: 25px 60px;
+    border: 8px solid black;
+    border-radius: 20px;
+    text-shadow: 3px 3px white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    z-index: 1000;
+}
+
+#winnerBanner.show {
+    animation: bannerDrop 1s ease-out forwards;
+}
+
+@keyframes bannerDrop {
+    0% {
+        top: -250px;
+    }
+
+    70% {
+        top: 80px;
+    }
+
+    85% {
+        top: 60px;
+    }
+
+    100% {
+        top: 70px;
+    }
+}
+
+/* Boden */
+.ground {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    background: #8B4513;
+    border-top: 8px solid #5d2d0c;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🍄 Münz-Digitalisierer 🍄</h1>
+
+<button onclick="scanCoin()">🪙 Münze digitalisieren</button>
+
+<div id="coins"></div>
+
+<div id="message"></div>
+
+<div id="winnerBanner">🏆 GEWONNEN! 🏆</div>
+
+<div class="ground"></div>
+
+<script>
+
+let count = 0;
+const maxCoins = 9;
+
+function scanCoin() {
+
+    if (count >= maxCoins) {
+        return;
+    }
+
+    count++;
+
+    const coin = document.createElement("div");
+    coin.className = "coin";
+
+    document.getElementById("coins").appendChild(coin);
+
+    if (count === maxCoins) {
+
+        document.getElementById("message").innerHTML =
+            "⭐ Alle 9 Münzen digitalisiert! ⭐";
+
+        setTimeout(startVictorySequence, 1000);
+    }
+}
+
+function startVictorySequence() {
+
+    const coins = document.querySelectorAll(".coin");
+
+    coins.forEach((coin, index) => {
+
+        setTimeout(() => {
+            coin.classList.add("fall");
+        }, index * 150);
+
+    });
+
+    setTimeout(() => {
+
+        document
+            .getElementById("winnerBanner")
+            .classList.add("show");
+
+        document.getElementById("message").innerHTML =
+            "🎉 Das Portal wurde aktiviert! 🎉";
+
+    }, 1800);
+}
+
+</script>
+
+</body>
+</html>
